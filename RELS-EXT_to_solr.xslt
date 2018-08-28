@@ -88,7 +88,15 @@
               <xsl:value-of select="concat($prefix, local-name(), '_', $type, '_s')"/>
             </xsl:attribute>
             <xsl:value-of select="$value"/>
-          </field>
+          </field> 
+<!-- Added aoneill 2018-07 -->
+-             <field>
+                        <xsl:attribute name="name">
+                                <xsl:value-of select="concat($prefix, local-name(), '_pid', $suffix)"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="substring-after(@rdf:resource, '/')"/>
+                </field>
+<!-- End added aoneill 2018-07 -->
           <xsl:choose>
             <xsl:when test="@rdf:datatype = 'http://www.w3.org/2001/XMLSchema#int'">
               <field>
@@ -103,7 +111,7 @@
                 <xsl:attribute name="name">
                   <xsl:value-of select="concat($prefix, local-name(), '_', $type, '_intDerivedFromString_l')"/>
                 </xsl:attribute>
-                <xsl:value-of select="floor($value)"/>
+                <xsl:value-of select="$value"/>
               </field>
             </xsl:when>
           </xsl:choose>
@@ -115,6 +123,15 @@
             </xsl:attribute>
             <xsl:value-of select="$value"/>
           </field>
+<!-- Added aoneill 2018-07 -->
+-             <field>
+                        <xsl:attribute name="name">
+                                <xsl:value-of select="concat($prefix, local-name(), '_pid', $suffix)"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="substring-after(@rdf:resource, '/')"/>
+                </field> 
+<!-- End added aoneill 2018-07 -->
+
         </xsl:otherwise>
       </xsl:choose>
     </xsl:template>

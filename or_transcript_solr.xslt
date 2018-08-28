@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ORALHISTORIES TRANSCRIPT -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:dcterms="http://purl.org/dc/terms/">
-    <xsl:template match="foxml:datastream[@ID='TRANSCRIPT']/foxml:datastreamVersion[last()][not(@MIMETYPE='text/vtt')]" name="index_TRANSCRIPT">
+    
+    <xsl:template match="foxml:datastream[@ID='TRANSCRIPT']/foxml:datastreamVersion[last()]" name="index_TRANSCRIPT">
         <xsl:param name="content"/>
         <xsl:param name="prefix">or_</xsl:param>
         <xsl:param name="solespeaker" select="$content//solespeaker"></xsl:param>
@@ -20,12 +21,12 @@
                         <xsl:value-of select="$solespeaker"/>
                     </field>
                 </xsl:if>
-                <xsl:apply-templates mode='slurping_oh_transform'>
+                <xsl:apply-templates>
                     <xsl:with-param name="prefix" select="$prefix"/>
                 </xsl:apply-templates>
             </xsl:for-each>
     </xsl:template>
-    <xsl:template match="//cue/*" mode='slurping_oh_transform'>
+    <xsl:template match="//cue/*">
         <xsl:param name="prefix" />
         <xsl:for-each select=".">
             <field>
@@ -37,3 +38,4 @@
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
+

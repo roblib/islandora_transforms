@@ -11,12 +11,12 @@
         </xsl:attribute>
         <xsl:value-of select="position()"/>
       </field>
-      <xsl:apply-templates mode='slurping_vtt'>
+      <xsl:apply-templates>
         <xsl:with-param name="prefix" select="$prefix"/>
       </xsl:apply-templates>
     </xsl:for-each>
   </xsl:template>
-  <xsl:template match="//cue/*" mode='slurping_vtt'>
+  <xsl:template match="//cue/*">
     <xsl:param name="prefix" />
     <xsl:for-each select=".">
       <field>
