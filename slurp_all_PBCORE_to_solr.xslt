@@ -6,11 +6,12 @@
   xmlns:foxml="info:fedora/fedora-system:def/foxml#"
   xmlns:pbcore="http://www.pbcore.org/PBCore/PBCoreNamespace.html"
      exclude-result-prefixes="pbcore java">
-  <xsl:include href="/usr/local/fedora/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/islandora_transforms/library/xslt-date-template.xslt"/>
-    
+<!-- Removed because this file is included already. -->
+  <!--  <xsl:include href="/usr/local/fedora/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/islandora_transforms/library/xslt-date-template.xslt"/>
+    -->
   <!-- HashSet to track single-valued fields. -->
-  <xsl:variable name="single_valued_hashset" select="java:java.util.HashSet.new()"/>
-
+ <!-- <xsl:variable name="single_valued_hashset" select="java:java.util.HashSet.new()"/>
+-->
   <xsl:template match="foxml:datastream[@ID='PBCORE']/foxml:datastreamVersion[last()]" name="index_PBCORE">
     <xsl:param name="content"/>
     <xsl:param name="prefix"></xsl:param>
