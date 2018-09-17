@@ -95,12 +95,12 @@
           </xsl:attribute>
           <xsl:value-of select="$value"/>
         </field>
-        <field>
+<!--        <field>
           <xsl:attribute name="name">
             <xsl:value-of select="concat($prefix, local-name(), '_', $type, $suffix)"/>
           </xsl:attribute>
           <xsl:value-of select="$value"/>
-        </field>
+        </field>-->
         <xsl:variable name="label">
           <xsl:call-template name="perform_query">
             <xsl:with-param name="lang">sparql</xsl:with-param>
