@@ -10,17 +10,17 @@
   <!--  <xsl:include href="/usr/local/fedora/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/islandora_transforms/library/xslt-date-template.xslt"/>
     -->
   <!-- HashSet to track single-valued fields. -->
- <!-- <xsl:variable name="single_valued_hashset" select="java:java.util.HashSet.new()"/>
--->
+ <xsl:variable name="single_valued_hashset_pbcore" select="java:java.util.HashSet.new()"/>
+
   <xsl:template match="foxml:datastream[@ID='PBCORE']/foxml:datastreamVersion[last()]" name="index_PBCORE">
     <xsl:param name="content"/>
     <xsl:param name="prefix"></xsl:param>
     <xsl:param name="suffix">ms</xsl:param>
 
     <!-- Clearing hash in case the template is ran more than once. -->
-    <xsl:variable name="return_from_clear" select="java:clear($single_valued_hashset)"/>
+    <xsl:variable name="return_from_clear" select="java:clear($single_valued_hashset_pbcore)"/>
 
-    <xsl:apply-templates mode="slurping_PBCORE" select="$content//pbcore:pbcoreCollection/pbcore:pbcoreDescriptionDocument[1]">
+    <xsl:apply-templates mode="slurping_PBCORE" select="$content/pbcore:pbcoreDescriptionDocument">
       <xsl:with-param name="prefix" select="$prefix"/>
       <xsl:with-param name="suffix" select="$suffix"/>
       <xsl:with-param name="pid" select="../../../@PID"/>
@@ -62,7 +62,7 @@
     <xsl:variable name="field_name" select="normalize-space(concat($this_prefix, local-name()))"/>
     <!-- The method java.util.HashSet.add will return false when the value is
          already in the set. -->
-    <xsl:if test="java:add($single_valued_hashset, $field_name)">
+    <xsl:if test="java:add($single_valued_hashset_pbcore, $field_name)">
       <xsl:if test="not(normalize-space($textValue)='')">
         <field>
           <xsl:attribute name="name">
@@ -348,7 +348,7 @@
               does not already exist, that is). -->
             <!-- XXX: We make some assumptions about the schema here...
               Primarily, _s getting copied to the same places as _ms. -->
-            <xsl:when test="$suffix='ms' and java:add($single_valued_hashset, string($prefix))">
+            <xsl:when test="$suffix='ms' and java:add($single_valued_hashset_pbcore, string($prefix))">
               <xsl:value-of select="concat($prefix, 's')"/>
             </xsl:when>
             <xsl:otherwise>
